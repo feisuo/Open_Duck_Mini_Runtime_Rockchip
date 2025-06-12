@@ -1,7 +1,7 @@
 系统包安装：
 
 apt update
-apt install -y python3-pip python3.11-dev python3-periphery python3-pygame python3-opencv libcap-dev
+apt install -y python3-pip python3.11-dev python3-periphery python3-pygame python3-opencv libcap-dev libcamera-dev
 
 --------------------------------------------
 
