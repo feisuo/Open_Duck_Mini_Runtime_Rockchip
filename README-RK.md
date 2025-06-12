@@ -10,8 +10,12 @@ python3包安装：
 注意：只能在root用户下安装
 
 pip3 install onnxruntime  --break-system-packages
-pip3 install adafruit-bno055 --break-system-packages
-pip3 install rustypot --break-system-packages
+
+pip3 install adafruit-circuitpython-bno055 --break-system-packages
+
+pip3 install  adafruit-extended-bus --break-system-packages
+
+pip3 install rustypot==0.1.0 --break-system-packages
 
 ----------------------
 
@@ -145,6 +149,20 @@ Hello from the pygame community. https://www.pygame.org/contribute.html
 
 示例：
 
->>> from rustypot import Sts3215PyController
+>>> >>> import rustypot
+>>>>>> c=rustypot.feetech('/dev/ttyS8', 1000000)            
+
+
+
+8、IMU - BNO055
+
+示例：
+
+>>> from adafruit_extended_bus import ExtendedI2C as I2C
+>>> import adafruit_bno055                              
 >>>
->>> c = Sts3215PyController(serial_port='/dev/ttyS8', baudrate=100000, timeout=0.1) 
+>>> i2c_bus = I2C(3)                                    
+>>> /usr/local/lib/python3.11/dist-packages/adafruit_blinka/microcontroller/generic_linux/i2c.py:30: RuntimeWarning: I2C frequency is not settable in python, ignoring!
+>>>   warnings.warn(
+>>>
+>>> imu = adafruit_bno055.BNO055_I2C(i2c_bus) 
