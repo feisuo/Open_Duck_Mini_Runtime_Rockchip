@@ -17,8 +17,6 @@ pip3 install  adafruit-extended-bus --break-system-packages
 
 pip3 install rustypot==0.1.0 --break-system-packages
 
-pip3 install picamzero --break-system-packages
-
 ----------------------
 
 环境设置：
