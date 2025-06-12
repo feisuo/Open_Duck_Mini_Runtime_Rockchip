@@ -1,0 +1,150 @@
+系统包安装：
+
+apt update
+apt install -y python3-pip python3.11-dev python3-periphery python3-pygame python3-opencv
+
+--------------------------------------------
+
+python3包安装：
+
+注意：只能在root用户下安装
+
+pip3 install onnxruntime  --break-system-packages
+pip3 install adafruit-bno055 --break-system-packages
+pip3 install rustypot --break-system-packages
+
+----------------------
+
+环境设置：
+
+在root根目录下，创建 .asoundrc 文件，内容如下：
+
+root@linaro-alip:~# cat .asoundrc 
+pcm.!default {
+    type hw
+    card 0
+}
+
+ctl.!default {
+    type hw
+    card 0
+}
+
+-----------------------------------------------------
+
+管脚对应操作：
+
+1、GPIO out
+
+​    pin15、pin32、pin35
+
+示例：
+
+>>> from periphery import GPIO
+>>> gpio_pin_out=15	# GPIO端口
+>>> gpio_out=GPIO(gpio_pin_out,'out')
+>>> gpio_out.write(True)	# 设为高电平
+>>> gpio_out.close()
+
+
+
+2、GPIO in
+
+​	pin14、pin30
+
+示例：
+
+>>> from periphery import GPIO
+>>> gpio_pin_in=14	# GPIO端口
+>>> gpio_in=GPIO(gpio_pin_in,'in')
+>>> value = gpio_in.read()
+>>> print(value)
+>>> gpio_in.close()
+
+
+
+3、PWM
+
+​	pin31（pwm2）、pin34（pwm3）
+
+示例：
+
+>>> from periphery import pwm    
+>>> pwm2=pwm.PWM(2,0)
+>>> pwm2.frequency= 1e3
+>>> pwm2.duty_cycle = 0.25
+>>> pwm3=pwm.PWM(3,0)     
+>>> pwm3.frequency= 1e3    
+>>> pwm3.duty_cycle = 0.75 
+>>> pwm2.enable()         
+>>> pwm3.enable()
+>>> pwm2.disable()
+>>> pwm3.disable()
+
+
+
+4、I2C  -  用于控制IMU，要配合adafruit-bno055包使用
+
+​	pin4（SDA）、pin6（SCL）
+
+示例：
+
+>>> from periphery import I2C                                         i2c = I2C("/dev/i2c-3")
+>>> msg0 = [I2C.Message([0x00]), I2C.Message([0x00], read=True)]
+>>> i2c.transfer(0x51,msg0)
+>>> print(msg0[1].data)    
+>>> [8]
+>>> msg0 = [I2C.Message([0x0e]), I2C.Message([0x00], read=True)] 
+>>> i2c.transfer(0x51,msg0)
+>>> print(msg0[1].data)
+>>> [3]
+>>> msg0 = [I2C.Message([0x0f]), I2C.Message([0x00], read=True)] 
+>>> i2c.transfer(0x51,msg0)
+>>> print(msg0[1].data)    
+>>> [32]
+
+
+
+5、串口uart
+
+​	pin7（TXD）、pin10（RXD）
+
+示例：
+
+>>> from periphery import Serial
+>>> serial= Serial("/dev/ttyS8",115200)
+>>> serial.write(b"hello world")
+>>> 11
+>>> buf = serial.read(128, 5)  
+>>> print(buf)
+>>> b'abcdefg'
+
+
+
+6、声卡播放：
+
+pin11（MCLK）、pin16（SDO）、pin17（LRCK）、pin21（SDI）、pin28（SCLK）
+
+示例：
+
+>>> import pygame                                       
+
+pygame 2.1.2 (SDL 2.26.5, Python 3.11.2)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+
+>>> pygame.mixer.init(frequency=48000)                  
+>>> pygame.mixer.music.set_volume(1.0)
+>>> sound= pygame.mixer.Sound("/home/linaro/sn-48k.wav")
+>>> sound.play()
+>>> <Channel object at 0x7fa326b630>
+>>> sound.stop()
+
+
+
+7、rustypot 
+
+示例：
+
+>>> from rustypot import Sts3215PyController
+>>>
+>>> c = Sts3215PyController(serial_port='/dev/ttyS8', baudrate=100000, timeout=0.1) 
