@@ -1,7 +1,7 @@
 系统包安装：
 
 apt update
-apt install -y python3-pip python3.11-dev python3-periphery python3-pygame python3-opencv
+apt install -y python3-pip python3.11-dev python3-periphery python3-pygame python3-opencv libcap-dev
 
 --------------------------------------------
 
@@ -16,6 +16,8 @@ pip3 install adafruit-circuitpython-bno055 --break-system-packages
 pip3 install  adafruit-extended-bus --break-system-packages
 
 pip3 install rustypot==0.1.0 --break-system-packages
+
+pip3 install picamzero --break-system-packages
 
 ----------------------
 
@@ -91,37 +93,11 @@ ctl.!default {
 
 ​	pin4（SDA）、pin6（SCL）
 
-示例：
-
->>> from periphery import I2C                                         i2c = I2C("/dev/i2c-3")
->>> msg0 = [I2C.Message([0x00]), I2C.Message([0x00], read=True)]
->>> i2c.transfer(0x51,msg0)
->>> print(msg0[1].data)    
->>> [8]
->>> msg0 = [I2C.Message([0x0e]), I2C.Message([0x00], read=True)] 
->>> i2c.transfer(0x51,msg0)
->>> print(msg0[1].data)
->>> [3]
->>> msg0 = [I2C.Message([0x0f]), I2C.Message([0x00], read=True)] 
->>> i2c.transfer(0x51,msg0)
->>> print(msg0[1].data)    
->>> [32]
-
 
 
 5、串口uart
 
 ​	pin7（TXD）、pin10（RXD）
-
-示例：
-
->>> from periphery import Serial
->>> serial= Serial("/dev/ttyS8",115200)
->>> serial.write(b"hello world")
->>> 11
->>> buf = serial.read(128, 5)  
->>> print(buf)
->>> b'abcdefg'
 
 
 
