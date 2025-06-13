@@ -1,7 +1,7 @@
 系统包安装：
 
 apt update
-apt install -y python3-pip python3.11-dev python3-periphery python3-pygame python3-opencv libcap-dev libcamera-dev
+apt install -y python3-pip python3.11-dev
 
 --------------------------------------------
 
@@ -9,13 +9,7 @@ python3包安装：
 
 注意：只能在root用户下安装
 
-pip3 install onnxruntime  --break-system-packages
-
-pip3 install adafruit-circuitpython-bno055 --break-system-packages
-
-pip3 install  adafruit-extended-bus --break-system-packages
-
-pip3 install rustypot==0.1.0 --break-system-packages
+pip3 install -r ./packages/requirements-rk.txt --break-system-packages
 
 ----------------------
 
@@ -140,3 +134,4 @@ Hello from the pygame community. https://www.pygame.org/contribute.html
 >>>   warnings.warn(
 >>>
 >>> imu = adafruit_bno055.BNO055_I2C(i2c_bus) 
+
