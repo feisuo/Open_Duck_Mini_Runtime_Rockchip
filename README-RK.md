@@ -9,7 +9,7 @@ python3包安装：
 
 注意：只能在root用户下安装
 
-pip3 install -r ./packages/requirements-rk.txt --break-system-packages
+pip3 install -e . --break-system-packages
 
 ----------------------
 
