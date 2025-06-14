@@ -1,4 +1,4 @@
-from periphery import pwm
+from periphery import PWM
 import numpy as np
 import time
 
@@ -13,8 +13,8 @@ RIGHT_SIGN = -1
 class Antennas:
     def __init__(self):
 
-        self.pwm1 = pwm.PWM(0, LEFT_ANTENNA_GPIO)
-        self.pwm2 = pwm.PWM(0, RIGHT_ANTENNA_GPIO)
+        self.pwm1 = PWM(0, LEFT_ANTENNA_GPIO)
+        self.pwm2 = PWM(0, RIGHT_ANTENNA_GPIO)
 
         self.pwm1.frequency = 50
         self.pwm2.frequency = 50

@@ -67,11 +67,11 @@ ctl.!default {
 
 示例：
 
->>> from periphery import pwm    
->>> pwm2=pwm.PWM(2,0)
+>>> from periphery import PWM    
+>>> pwm2=PWM(2,0)
 >>> pwm2.frequency= 1e3
 >>> pwm2.duty_cycle = 0.25
->>> pwm3=pwm.PWM(3,0)     
+>>> pwm3=PWM(3,0)     
 >>> pwm3.frequency= 1e3    
 >>> pwm3.duty_cycle = 0.75 
 >>> pwm2.enable()         
