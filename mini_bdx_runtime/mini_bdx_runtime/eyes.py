@@ -6,14 +6,14 @@ from threading import Thread
 LEFT_EYE_GPIO = 133
 RIGHT_EYE_GPIO = 119
 
-LEFT_EYE=GPIO(LEFT_EYE_GPIO, 'out')
-RIGHT_EYE=GPIO(RIGHT_EYE_GPIO, 'out')
 
 class Eyes:
     def __init__(self):
 
-        LEFT_EYE.write(True)
-        RIGHT_EYE.write(True)
+        self.left_eye=GPIO(LEFT_EYE_GPIO, 'out')
+        self.right_eye=GPIO(RIGHT_EYE_GPIO, 'out')
+        self.left_eye.write(True)
+        self.right_eye.write(True)
 
         self.blink_duration = 0.1
 
@@ -21,11 +21,11 @@ class Eyes:
 
     def run(self):
         while True:
-            LEFT_EYE.write(False)
-            RIGHT_EYE.write(False)
+            self.left_eye.write(False)
+            self.right_eye.write(False)
             time.sleep(self.blink_duration)
-            LEFT_EYE.write(True)
-            RIGHT_EYE.write(True)
+            self.left_eye.write(True)
+            self.right_eye.write(True)
 
             next_blink = np.random.rand() * 4  # seconds
 
