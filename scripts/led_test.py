@@ -2,21 +2,25 @@ from periphery import GPIO
 import numpy as np
 import time
 
-LED = 120
-LED2 = 126
-LED3 = 134
+LEFT_EYE = 119
+RIGHT_EYE = 125
+DIRECTOR = 133
 
 
-GPIO_LED_OUT=GPIO(LED, 'out')
-GPIO_LED2_OUT=GPIO(LED2, 'out')
-GPIO_LED3_OUT=GPIO(LED3, 'out')
+GPIO_LEFT_EYE_OUT=GPIO(LEFT_EYE, 'out')
+GPIO_RIGHT_EYE_OUT=GPIO(RIGHT_EYE, 'out')
+GPIO_DIRECTOR_OUT=GPIO(DIRECTOR, 'out')
 
-GPIO_LED_OUT.write(True)
-GPIO_LED2_OUT.write(True)
-GPIO_LED3_OUT.write(True)
+GPIO_LEFT_EYE_OUT.write(True)
+GPIO_RIGHT_EYE_OUT.write(True)
+GPIO_DIRECTOR_OUT.write(True)
 
 time.sleep(10)
 
-GPIO_LED_OUT.close();
-GPIO_LED2_OUT.close();
-GPIO_LED3_OUT.close();
+GPIO_LEFT_EYE_OUT.write(False)
+GPIO_RIGHT_EYE_OUT.write(False)
+GPIO_DIRECTOR_OUT.write(False)
+
+GPIO_LEFT_EYE_OUT.close()
+GPIO_RIGHT_EYE_OUT.close()
+GPIO_DIRECTOR_OUT.close()
