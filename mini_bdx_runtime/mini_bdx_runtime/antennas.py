@@ -48,9 +48,9 @@ class Antennas:
 
             duty = 2 + (angle / 18)  # Convert angle to duty cycle (1ms-2ms)
             if servo == 1:
-                self.pwm1.duty_cycle = duty
+                self.pwm1.duty_cycle = duty / 100
             elif servo == 2:
-                self.pwm2.duty_cycle = duty
+                self.pwm2.duty_cycle = duty / 100
             else:
                 print("Invalid servo number!")
             # time.sleep(0.01)  # Allow time for movement
