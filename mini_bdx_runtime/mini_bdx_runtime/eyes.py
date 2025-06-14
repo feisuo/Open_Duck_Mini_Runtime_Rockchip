@@ -1,21 +1,19 @@
-import RPi.GPIO as GPIO
+from periphery import GPIO
 import numpy as np
 import time
 from threading import Thread
 
-LEFT_EYE_GPIO = 24
-RIGHT_EYE_GPIO = 23
+LEFT_EYE_GPIO = 133
+RIGHT_EYE_GPIO = 119
 
+LEFT_EYE=GPIO(LEFT_EYE_GPIO, 'out')
+RIGHT_EYE=GPIO(RIGHT_EYE_GPIO, 'out')
 
 class Eyes:
     def __init__(self):
-        GPIO.setmode(GPIO.BCM)
-        GPIO.setwarnings(False)
-        GPIO.setup(RIGHT_EYE_GPIO, GPIO.OUT)
-        GPIO.setup(LEFT_EYE_GPIO, GPIO.OUT)
 
-        GPIO.output(RIGHT_EYE_GPIO, GPIO.HIGH)
-        GPIO.output(LEFT_EYE_GPIO, GPIO.HIGH)
+        LEFT_EYE.write(True)
+        RIGHT_EYE.write(True)
 
         self.blink_duration = 0.1
 
@@ -23,11 +21,11 @@ class Eyes:
 
     def run(self):
         while True:
-            GPIO.output(RIGHT_EYE_GPIO, GPIO.LOW)
-            GPIO.output(LEFT_EYE_GPIO, GPIO.LOW)
+            LEFT_EYE.write(False)
+            RIGHT_EYE.write(False)
             time.sleep(self.blink_duration)
-            GPIO.output(RIGHT_EYE_GPIO, GPIO.HIGH)
-            GPIO.output(LEFT_EYE_GPIO, GPIO.HIGH)
+            LEFT_EYE.write(True)
+            RIGHT_EYE.write(True)
 
             next_blink = np.random.rand() * 4  # seconds
 

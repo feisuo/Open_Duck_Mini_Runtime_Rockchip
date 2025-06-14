@@ -1,9 +1,11 @@
-import RPi.GPIO as GPIO
+from periphery import pwm
 import numpy as np
 import time
 
-LEFT_ANTENNA_PIN = 13
-RIGHT_ANTENNA_PIN = 12
+LEFT_ANTENNA_GPIO = 120
+RIGHT_ANTENNA_GPIO = 126
+
+
 LEFT_SIGN = 1
 RIGHT_SIGN = -1
 
@@ -11,15 +13,17 @@ RIGHT_SIGN = -1
 class Antennas:
     def __init__(self):
 
-        GPIO.setmode(GPIO.BCM)
-        GPIO.setup(LEFT_ANTENNA_PIN, GPIO.OUT)
-        GPIO.setup(RIGHT_ANTENNA_PIN, GPIO.OUT)
+        self.pwm1 = pwm.PWM(0, LEFT_ANTENNA_GPIO)
+        self.pwm2 = pwm.PWM(0, RIGHT_ANTENNA_GPIO)
 
-        self.pwm1 = GPIO.PWM(LEFT_ANTENNA_PIN, 50)
-        self.pwm2 = GPIO.PWM(RIGHT_ANTENNA_PIN, 50)
+        self.pwm1.frequency = 50
+        self.pwm2.frequency = 50
 
-        self.pwm1.start(0)
-        self.pwm2.start(0)
+        self.pwm1.duty_cycle = 0
+        self.pwm2.duty_cycle = 0
+
+        self.pwm1.enable()
+        self.pwm2.enable()
 
     def map_input_to_angle(self, value):
         return 90 + (value * 90)
@@ -44,9 +48,9 @@ class Antennas:
 
             duty = 2 + (angle / 18)  # Convert angle to duty cycle (1ms-2ms)
             if servo == 1:
-                self.pwm1.ChangeDutyCycle(duty)
+                self.pwm1.duty_cycle = duty
             elif servo == 2:
-                self.pwm2.ChangeDutyCycle(duty)
+                self.pwm2.duty_cycle = duty
             else:
                 print("Invalid servo number!")
             # time.sleep(0.01)  # Allow time for movement
@@ -54,9 +58,8 @@ class Antennas:
             print("Invalid input! Enter a value between -1 and 1.")
 
     def stop(self):
-        self.pwm1.stop()
-        self.pwm2.stop()
-        GPIO.cleanup()
+        self.pwm1.close()
+        self.pwm2.close()
 
 
 if __name__ == "__main__":
