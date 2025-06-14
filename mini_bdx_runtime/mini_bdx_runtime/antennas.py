@@ -2,9 +2,7 @@ from periphery import pwm
 import numpy as np
 import time
 
-/*GPIO120*/
 LEFT_ANTENNA_PWM = 2
-/*GPIO126*/
 RIGHT_ANTENNA_PWM = 3
 
 
