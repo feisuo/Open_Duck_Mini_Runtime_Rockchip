@@ -2,9 +2,9 @@ from periphery import GPIO
 import numpy as np
 import time
 
-LED = 120
-LED2 = 126
-LED3 = 134
+LED = 119
+LED2 = 125
+LED3 = 133
 
 
 GPIO_LED_OUT=GPIO(LED, 'out')
