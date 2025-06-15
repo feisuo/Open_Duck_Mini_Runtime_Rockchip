@@ -1,24 +1,22 @@
-import RPi.GPIO as GPIO
+from periphery import GPIO
 import numpy as np
 
 
-LEFT_FOOT_PIN = 22
-RIGHT_FOOT_PIN = 27
+LEFT_FOOT_PIN = 124
+RIGHT_FOOT_PIN = 138
 
 
 class FeetContacts:
     def __init__(self):
-        GPIO.setwarnings(False)  # Ignore warning for now
-        GPIO.setmode(GPIO.BCM)  # Use physical pin numbering
-        GPIO.setup(LEFT_FOOT_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-        GPIO.setup(RIGHT_FOOT_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+        self.left_foot_gpio = GPIO(LEFT_FOOT_PIN, 'in')
+        self.right_foot_gpio = GPIO(RIGHT_FOOT_PIN, 'in')
 
     def get(self):
         left = False
         right = False
-        if GPIO.input(LEFT_FOOT_PIN) == GPIO.LOW:
+        if self.left_foot_gpio.read() == False:
             left = True
-        if GPIO.input(RIGHT_FOOT_PIN) == GPIO.LOW:
+        if self.right_foot_gpio.read() == False:
             right = True
         return np.array([left, right])
 
