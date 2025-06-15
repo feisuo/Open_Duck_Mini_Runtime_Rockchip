@@ -16,6 +16,9 @@ class Antennas:
         self.pwm1 = pwm.PWM(LEFT_ANTENNA_PWM,0)
         self.pwm2 = pwm.PWM(RIGHT_ANTENNA_PWM,0)
 
+        self.pwm1.polarity='normal'
+        self.pwm2.polarity='normal'
+
         self.pwm1.frequency = 50
         self.pwm2.frequency = 50
 
