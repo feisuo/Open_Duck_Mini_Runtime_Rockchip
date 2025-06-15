@@ -1,24 +1,21 @@
-import RPi.GPIO as GPIO
+from periphery import GPIO
 import time
 
-PROJECTOR_GPIO = 25
+PROJECTOR_GPIO = 125
 
 class Projector:
     def __init__(self):
-        GPIO.setmode(GPIO.BCM)
-        GPIO.setwarnings(False)
-        GPIO.setup(PROJECTOR_GPIO, GPIO.OUT)
-
-        GPIO.output(PROJECTOR_GPIO, GPIO.LOW)
+        self.projector=GPIO(PROJECTOR_GPIO, 'out')
+        self.projector.write(False)
         self.on = False
 
     def switch(self):
         self.on = not self.on
 
         if self.on:
-            GPIO.output(PROJECTOR_GPIO, GPIO.HIGH)
+            self.projector.write(True)
         else:
-            GPIO.output(PROJECTOR_GPIO, GPIO.LOW)
+            self.projector.write(False)
 
 
 if __name__ == "__main__":
