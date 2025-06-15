@@ -6,7 +6,7 @@ import random
 
 class Sounds:
     def __init__(self, volume=1.0, sound_directory="./"):
-        pygame.mixer.init()
+        pygame.mixer.init(frequency=48000)
         pygame.mixer.music.set_volume(volume)
         self.sounds = {}
         self.ok = True
