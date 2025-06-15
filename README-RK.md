@@ -15,18 +15,9 @@ pip3 install -e . --break-system-packages
 
 环境设置：
 
-在root根目录下，创建 .asoundrc 文件，内容如下：
+在root根目录下，执行以下命令创建 .asoundrc 文件：
 
-root@linaro-alip:~# cat .asoundrc 
-pcm.!default {
-    type hw
-    card 0
-}
-
-ctl.!default {
-    type hw
-    card 0
-}
+echo -e 'pcm.!default {\n    type hw\n    card 0\n}\n\nctl.!default {\n    type hw\n    card 0\n}' > /root/.asoundrc
 
 -----------------------------------------------------
 
